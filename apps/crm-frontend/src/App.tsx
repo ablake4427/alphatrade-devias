@@ -10,6 +10,11 @@ import Trades from './pages/Trades';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import Placeholder from './pages/Placeholder';
+import Reports from './pages/Reports';
+import ReportTransactions from './pages/ReportTransactions';
+import ReportLogins from './pages/ReportLogins';
+import ReportNotifications from './pages/ReportNotifications';
+import ReportAgentPerformance from './pages/ReportAgentPerformance';
 import Referrals from './pages/admin/Referrals';
 import CoinPairs from './pages/admin/CoinPairs';
 import GeneralSettings from './pages/admin/GeneralSettings';
@@ -68,7 +73,11 @@ export default function App() {
       <Route path="/crm/tasks" element={token ? <Placeholder title="CRM Tasks" /> : <Navigate to="/login" />} />
       <Route path="/crm/notes" element={token ? <Placeholder title="CRM Notes" /> : <Navigate to="/login" />} />
       <Route path="/crm/chat" element={token ? <Placeholder title="CRM Staff Chat" /> : <Navigate to="/login" />} />
-      <Route path="/reports" element={token ? <Placeholder title="Reports" /> : <Navigate to="/login" />} />
+      <Route path="/reports" element={token ? <Reports /> : <Navigate to="/login" />} />
+      <Route path="/reports/transactions" element={token ? <ReportTransactions /> : <Navigate to="/login" />} />
+      <Route path="/reports/logins" element={token ? <ReportLogins /> : <Navigate to="/login" />} />
+      <Route path="/reports/notifications" element={token ? <ReportNotifications /> : <Navigate to="/login" />} />
+      <Route path="/reports/agent-performance" element={token ? <ReportAgentPerformance /> : <Navigate to="/login" />} />
 
       <Route path="/settings" element={token ? <Settings /> : <Navigate to="/login" />} />
       <Route path="/system/cron" element={token ? <Placeholder title="System Cron" /> : <Navigate to="/login" />} />
