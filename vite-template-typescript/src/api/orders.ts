@@ -6,13 +6,17 @@ export interface OrderComment {
   createdAt: string;
 }
 
+interface RawOrder extends Omit<Order, "createdAt"> {
+  createdAt: string;
+}
+
 export async function getOpenOrders(): Promise<Order[]> {
   const res = await fetch("/order/open");
   if (!res.ok) {
     throw new Error("failed to fetch open orders");
   }
-  const data = await res.json();
-  return data.map((o: any) => ({ ...o, createdAt: new Date(o.createdAt) }));
+  const data: RawOrder[] = await res.json();
+  return data.map((o) => ({ ...o, createdAt: new Date(o.createdAt) }));
 }
 
 export async function getOrderHistory(): Promise<Order[]> {
@@ -20,8 +24,8 @@ export async function getOrderHistory(): Promise<Order[]> {
   if (!res.ok) {
     throw new Error("failed to fetch order history");
   }
-  const data = await res.json();
-  return data.map((o: any) => ({ ...o, createdAt: new Date(o.createdAt) }));
+  const data: RawOrder[] = await res.json();
+  return data.map((o) => ({ ...o, createdAt: new Date(o.createdAt) }));
 }
 
 export async function getOrderComments(orderId: string): Promise<OrderComment[]> {
