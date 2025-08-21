@@ -22,6 +22,8 @@ import Alerts from './pages/admin/Alerts';
 
 import BinaryTrades from './pages/admin/binary-trades';
 import P2PAdmin from './pages/admin/p2p';
+import SupportTickets from './pages/support/Tickets';
+import SupportTicket from './pages/support/Ticket';
 
 import AdminCurrencies from './pages/admin/currencies';
 import AdminMarkets from './pages/admin/markets';
@@ -63,7 +65,8 @@ export default function App() {
       <Route path="/trading/futures" element={token ? <Placeholder title="Trading Futures" /> : <Navigate to="/login" />} />
       <Route path="/admin/binary-trades/*" element={token ? <BinaryTrades /> : <Navigate to="/login" />} />
       <Route path="/admin/p2p/*" element={token ? <P2PAdmin /> : <Navigate to="/login" />} />
-      <Route path="/support" element={token ? <Placeholder title="Support" /> : <Navigate to="/login" />} />
+      <Route path="/support" element={token ? <SupportTickets /> : <Navigate to="/login" />} />
+      <Route path="/support/:id" element={token ? <SupportTicket /> : <Navigate to="/login" />} />
       <Route path="/crm/leads" element={token ? <Placeholder title="CRM Leads" /> : <Navigate to="/login" />} />
       <Route path="/crm/contacts" element={token ? <Placeholder title="CRM Contacts" /> : <Navigate to="/login" />} />
       <Route path="/crm/opportunities" element={token ? <Placeholder title="CRM Opportunities" /> : <Navigate to="/login" />} />
