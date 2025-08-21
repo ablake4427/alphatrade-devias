@@ -1,9 +1,17 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { requirePerm } from '../middleware/auth.js';
+import { query } from '../db/db.js';
+import * as settingsSql from '../db/sql/settings.js';
+import * as cronSql from '../db/sql/cron.js';
+import * as auditSql from '../db/sql/audit.js';
+import * as alertsSql from '../db/sql/alerts.js';
 
 const router = Router();
 
 const perm = (action: string) => requirePerm(action as any);
+
+const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 function notImplemented(_req: any, res: any) {
   res.status(501).json({ error: 'not implemented' });
@@ -63,13 +71,71 @@ router.get('/reports/notifications', perm('reports.read'), notImplemented);
 router.get('/reports/agent-performance', perm('reports.read'), notImplemented);
 
 // Settings
-router.get('/settings', perm('settings.read'), notImplemented);
-router.put('/settings/:key', perm('settings.write'), notImplemented);
+router.get('/settings', perm('settings.read'), asyncHandler(async (_req: Request, res: Response) => {
+  const rows = await query<any>(settingsSql.listSettings);
+  res.json({ data: rows });
+}));
+
+router.post('/settings', perm('settings.write'), asyncHandler(async (req: Request, res: Response) => {
+  const { key, value, status } = req.body;
+  await query(settingsSql.insertSetting, [key, value, status]);
+  res.json({ ok: true });
+}));
+
+router.put('/settings/:id', perm('settings.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { key, value, status } = req.body;
+  await query(settingsSql.updateSetting, [key, value, status, id]);
+  res.json({ ok: true });
+}));
+
+router.delete('/settings/:id', perm('settings.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  await query(settingsSql.deleteSetting, [id]);
+  res.json({ ok: true });
+}));
 
 // System
-router.get('/cron', perm('system.read'), notImplemented);
-router.post('/cron/:id/toggle', perm('system.write'), notImplemented);
-router.get('/audit', perm('system.read'), notImplemented);
-router.get('/alerts', perm('system.read'), notImplemented);
+router.get('/cron', perm('system.read'), asyncHandler(async (_req: Request, res: Response) => {
+  const rows = await query<any>(cronSql.listCronJobs);
+  res.json({ data: rows });
+}));
+
+router.post('/cron', perm('system.write'), asyncHandler(async (req: Request, res: Response) => {
+  const { name, schedule, status } = req.body;
+  await query(cronSql.insertCronJob, [name, schedule, status]);
+  res.json({ ok: true });
+}));
+
+router.put('/cron/:id', perm('system.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { name, schedule, status } = req.body;
+  await query(cronSql.updateCronJob, [name, schedule, status, id]);
+  res.json({ ok: true });
+}));
+
+router.delete('/cron/:id', perm('system.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  await query(cronSql.deleteCronJob, [id]);
+  res.json({ ok: true });
+}));
+
+router.post('/cron/:id/toggle', perm('system.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  await query(cronSql.toggleCronJob, [id]);
+  res.json({ ok: true });
+}));
+
+router.get('/audit', perm('system.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(auditSql.listAuditLogs, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
+
+router.get('/alerts', perm('system.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(alertsSql.listAlerts, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
 
 export default router;
