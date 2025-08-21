@@ -23,6 +23,7 @@ import { dayjs } from "@/lib/dayjs";
 import { RouterLink } from "@/components/core/link";
 import { PropertyItem } from "@/components/core/property-item";
 import { PropertyList } from "@/components/core/property-list";
+import { OrderComments } from "@/components/orders/order-comments";
 
 import { LineItemsTable } from "./line-items-table";
 import type { LineItem } from "./line-items-table";
@@ -49,22 +50,22 @@ const lineItems = [
 ] satisfies LineItem[];
 
 export interface OrderModalProps {
-	open: boolean;
-	orderId?: string;
+        open: boolean;
+        orderId?: string;
 }
 
-export function OrderModal({ open }: OrderModalProps): React.JSX.Element | null {
-	const navigate = useNavigate();
+export function OrderModal({ open, orderId }: OrderModalProps): React.JSX.Element | null {
+        const navigate = useNavigate();
 
-	// This component should load the order from the API based on the orderId prop.
-	// For the sake of simplicity, we are just using a static order object.
+        // This component should load the order from the API based on the orderId prop.
+        // For the sake of simplicity, we are just using a static order object.
 
-	const handleClose = React.useCallback(() => {
-		navigate(paths.dashboard.orders.list);
-	}, [navigate]);
+        const handleClose = React.useCallback(() => {
+                navigate(paths.dashboard.orders.list);
+        }, [navigate]);
 
-	return (
-		<Dialog
+        return (
+                <Dialog
 			maxWidth="sm"
 			onClose={handleClose}
 			open={open}
@@ -80,8 +81,8 @@ export function OrderModal({ open }: OrderModalProps): React.JSX.Element | null 
 						<XIcon />
 					</IconButton>
 				</Stack>
-				<Stack spacing={3} sx={{ flex: "1 1 auto", overflowY: "auto" }}>
-					<Stack spacing={3}>
+                                <Stack spacing={3} sx={{ flex: "1 1 auto", overflowY: "auto" }}>
+                                        <Stack spacing={3}>
 						<Stack direction="row" spacing={3} sx={{ alignItems: "center", justifyContent: "space-between" }}>
 							<Typography variant="h6">Details</Typography>
 							<Button
@@ -153,49 +154,50 @@ export function OrderModal({ open }: OrderModalProps): React.JSX.Element | null 
 							</PropertyList>
 						</Card>
 					</Stack>
-					<Stack spacing={3}>
-						<Typography variant="h6">Line items</Typography>
-						<Card sx={{ borderRadius: 1 }} variant="outlined">
-							<Box sx={{ overflowX: "auto" }}>
-								<LineItemsTable rows={lineItems} />
-							</Box>
-							<Divider />
-							<Box sx={{ display: "flex", justifyContent: "flex-end", p: 3 }}>
-								<Stack spacing={2} sx={{ width: "300px", maxWidth: "100%" }}>
-									<Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
-										<Typography variant="body2">Subtotal</Typography>
-										<Typography variant="body2">
-											{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(59)}
-										</Typography>
-									</Stack>
-									<Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
-										<Typography variant="body2">Discount</Typography>
-										<Typography variant="body2">-</Typography>
-									</Stack>
-									<Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
-										<Typography variant="body2">Shipping</Typography>
-										<Typography variant="body2">
-											{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(20)}
-										</Typography>
-									</Stack>
-									<Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
-										<Typography variant="body2">Taxes</Typography>
-										<Typography variant="body2">
-											{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(15.01)}
-										</Typography>
-									</Stack>
-									<Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
-										<Typography variant="subtitle1">Total</Typography>
-										<Typography variant="subtitle1">
-											{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(94.01)}
-										</Typography>
-									</Stack>
-								</Stack>
-							</Box>
-						</Card>
-					</Stack>
-				</Stack>
-			</DialogContent>
-		</Dialog>
-	);
+                                        <Stack spacing={3}>
+                                                <Typography variant="h6">Line items</Typography>
+                                                <Card sx={{ borderRadius: 1 }} variant="outlined">
+                                                        <Box sx={{ overflowX: "auto" }}>
+                                                                <LineItemsTable rows={lineItems} />
+                                                        </Box>
+                                                        <Divider />
+                                                        <Box sx={{ display: "flex", justifyContent: "flex-end", p: 3 }}>
+                                                                <Stack spacing={2} sx={{ width: "300px", maxWidth: "100%" }}>
+                                                                        <Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
+                                                                                <Typography variant="body2">Subtotal</Typography>
+                                                                                <Typography variant="body2">
+                                                                                        {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(59)}
+                                                                                </Typography>
+                                                                        </Stack>
+                                                                        <Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
+                                                                                <Typography variant="body2">Discount</Typography>
+                                                                                <Typography variant="body2">-</Typography>
+                                                                        </Stack>
+                                                                        <Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
+                                                                                <Typography variant="body2">Shipping</Typography>
+                                                                                <Typography variant="body2">
+                                                                                        {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(20)}
+                                                                                </Typography>
+                                                                        </Stack>
+                                                                        <Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
+                                                                                <Typography variant="body2">Taxes</Typography>
+                                                                                <Typography variant="body2">
+                                                                                        {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(15.01)}
+                                                                                </Typography>
+                                                                        </Stack>
+                                                                        <Stack direction="row" spacing={3} sx={{ justifyContent: "space-between" }}>
+                                                                                <Typography variant="subtitle1">Total</Typography>
+                                                                                <Typography variant="subtitle1">
+                                                                                        {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(94.01)}
+                                                                                </Typography>
+                                                                        </Stack>
+                                                                </Stack>
+                                                        </Box>
+                                                </Card>
+                                        </Stack>
+                                        {orderId ? <OrderComments orderId={orderId} /> : null}
+                                </Stack>
+                        </DialogContent>
+                </Dialog>
+        );
 }
