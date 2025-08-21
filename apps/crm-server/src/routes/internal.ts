@@ -33,12 +33,6 @@ router.post('/p2p/trades/:id/complete', perm('p2p.write'), notImplemented);
 router.post('/p2p/trades/:id/message', perm('p2p.write'), notImplemented);
 router.post('/p2p/disputes/:id/resolve', perm('p2p.write'), notImplemented);
 
-// Support
-router.get('/support/tickets', perm('support.read'), notImplemented);
-router.get('/support/tickets/:id', perm('support.read'), notImplemented);
-router.post('/support/tickets/:id/reply', perm('support.write'), notImplemented);
-router.post('/support/tickets/:id/close', perm('support.write'), notImplemented);
-
 // CRM
 router.get('/crm/leads', perm('crm.read'), notImplemented);
 router.post('/crm/leads', perm('crm.write'), notImplemented);

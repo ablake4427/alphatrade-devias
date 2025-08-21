@@ -6,7 +6,9 @@ export type Action =
   | 'deposits.read'
   | 'deposits.write'
   | 'withdrawals.read'
-  | 'withdrawals.write';
+  | 'withdrawals.write'
+  | 'support.read'
+  | 'support.write';
 
 export const rolePermissions: Record<string, Action[]> = {
   admin: [
@@ -17,9 +19,11 @@ export const rolePermissions: Record<string, Action[]> = {
     'deposits.read',
     'deposits.write',
     'withdrawals.read',
-    'withdrawals.write'
+    'withdrawals.write',
+    'support.read',
+    'support.write'
   ],
   agent: ['dashboard.read', 'users.read', 'wallets.read', 'deposits.read', 'withdrawals.read'],
-  support: ['dashboard.read', 'users.read']
+  support: ['dashboard.read', 'users.read', 'support.read', 'support.write']
 };
 
