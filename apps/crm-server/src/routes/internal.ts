@@ -1,4 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { query, assertTableExists } from '../db/db.js';
+import * as reports from '../db/sql/reports.js';
 import { requirePerm } from '../middleware/auth.js';
 import { query } from '../db/db.js';
 import * as settingsSql from '../db/sql/settings.js';
@@ -7,6 +9,9 @@ import * as auditSql from '../db/sql/audit.js';
 import * as alertsSql from '../db/sql/alerts.js';
 
 const router = Router();
+
+const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 const perm = (action: string) => requirePerm(action as any);
 
@@ -59,10 +64,26 @@ router.get('/crm/chat', perm('crm.read'), notImplemented);
 router.post('/crm/chat', perm('crm.write'), notImplemented);
 
 // Reports
-router.get('/reports/transactions', perm('reports.read'), notImplemented);
-router.get('/reports/logins', perm('reports.read'), notImplemented);
-router.get('/reports/notifications', perm('reports.read'), notImplemented);
-router.get('/reports/agent-performance', perm('reports.read'), notImplemented);
+router.get('/reports/transactions', perm('reports.read'), asyncHandler(async (_req: Request, res: Response) => {
+  if (!(await assertTableExists('transactions'))) return res.json([]);
+  const rows = await query<any>(reports.transactions);
+  res.json(rows);
+}));
+router.get('/reports/logins', perm('reports.read'), asyncHandler(async (_req: Request, res: Response) => {
+  if (!(await assertTableExists('user_logins'))) return res.json([]);
+  const rows = await query<any>(reports.logins);
+  res.json(rows);
+}));
+router.get('/reports/notifications', perm('reports.read'), asyncHandler(async (_req: Request, res: Response) => {
+  if (!(await assertTableExists('admin_notifications'))) return res.json([]);
+  const rows = await query<any>(reports.notifications);
+  res.json(rows);
+}));
+router.get('/reports/agent-performance', perm('reports.read'), asyncHandler(async (_req: Request, res: Response) => {
+  if (!(await assertTableExists('admins')) || !(await assertTableExists('users'))) return res.json([]);
+  const rows = await query<any>(reports.agentPerformance);
+  res.json(rows);
+}));
 
 // Settings
 router.get('/settings', perm('settings.read'), asyncHandler(async (_req: Request, res: Response) => {
