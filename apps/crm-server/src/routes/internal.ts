@@ -1,26 +1,71 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { requirePerm } from '../middleware/auth.js';
+import { query } from '../db/db.js';
+import {
+  listSpotOrders,
+  cancelSpotOrder,
+  listSpotTrades,
+  listFuturesPositions,
+  listFuturesOrders,
+  listBinaryTrades,
+  refundBinaryTrade
+} from '../db/sql/trading.js';
 
 const router = Router();
 
 const perm = (action: string) => requirePerm(action as any);
+
+const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 function notImplemented(_req: any, res: any) {
   res.status(501).json({ error: 'not implemented' });
 }
 
 // Trading - Spot
-router.get('/spot/orders', perm('spot.orders.read'), notImplemented);
-router.delete('/spot/orders/:id', perm('spot.orders.write'), notImplemented);
-router.get('/spot/trades', perm('spot.trades.read'), notImplemented);
+router.get('/spot/orders', perm('spot.orders.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(listSpotOrders, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
+
+router.delete('/spot/orders/:id', perm('spot.orders.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  await query(cancelSpotOrder, [id]);
+  res.json({ ok: true });
+}));
+
+router.get('/spot/trades', perm('spot.trades.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(listSpotTrades, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
 
 // Trading - Futures
-router.get('/futures/positions', perm('futures.positions.read'), notImplemented);
-router.get('/futures/orders', perm('futures.orders.read'), notImplemented);
+router.get('/futures/positions', perm('futures.positions.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(listFuturesPositions, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
+
+router.get('/futures/orders', perm('futures.orders.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(listFuturesOrders, [Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
 
 // Trading - Binary
-router.get('/binary/trades', perm('binary.trades.read'), notImplemented);
-router.post('/binary/trades/:id/refund', perm('binary.trades.write'), notImplemented);
+router.get('/binary/trades', perm('binary.trades.read'), asyncHandler(async (req: Request, res: Response) => {
+  const { status = null, limit = '20', offset = '0' } = req.query;
+  const rows = await query<any>(listBinaryTrades, [status, status, Number(limit), Number(offset)]);
+  res.json({ data: rows });
+}));
+
+router.post('/binary/trades/:id/refund', perm('binary.trades.write'), asyncHandler(async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  await query(refundBinaryTrade, [id]);
+  res.json({ ok: true });
+}));
 
 // P2P
 router.get('/p2p/ads', perm('p2p.read'), notImplemented);

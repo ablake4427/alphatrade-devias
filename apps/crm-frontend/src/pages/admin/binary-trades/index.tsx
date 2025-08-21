@@ -1,43 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import { listBinaryTrades, getTradeComments, addTradeComment, BinaryTrade, TradeComment } from '../../../api/binary-trades';
+import { listBinaryTrades, refundBinaryTrade, BinaryTrade } from '../../../api/binary-trades';
 
 function TradeList({ status }: { status: string }) {
   const [trades, setTrades] = useState<BinaryTrade[]>([]);
+  const load = () => listBinaryTrades(status).then(setTrades);
   useEffect(() => {
-    listBinaryTrades(status).then(setTrades);
+    load();
   }, [status]);
+  const refund = async (id: string) => {
+    await refundBinaryTrade(id);
+    load();
+  };
   return (
     <div>
       {trades.map(trade => (
-        <TradeItem key={trade.id} trade={trade} />
+        <div key={trade.id} style={{ border: '1px solid #ccc', padding: 8, marginBottom: 8 }}>
+          <pre>{JSON.stringify(trade, null, 2)}</pre>
+          <button onClick={() => refund(trade.id)}>Refund</button>
+        </div>
       ))}
-    </div>
-  );
-}
-
-function TradeItem({ trade }: { trade: BinaryTrade }) {
-  const [comments, setComments] = useState<TradeComment[]>([]);
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    getTradeComments(trade.id).then(setComments);
-  }, [trade.id]);
-  const add = async () => {
-    if (!message.trim()) return;
-    await addTradeComment(trade.id, message);
-    setMessage('');
-    setComments(await getTradeComments(trade.id));
-  };
-  return (
-    <div style={{ border: '1px solid #ccc', padding: 8, marginBottom: 8 }}>
-      <pre>{JSON.stringify(trade, null, 2)}</pre>
-      <div>
-        {comments.map(c => (
-          <div key={c.id}>{c.message}</div>
-        ))}
-      </div>
-      <input value={message} onChange={e => setMessage(e.target.value)} placeholder="Add comment" />
-      <button onClick={add}>Post</button>
     </div>
   );
 }
