@@ -43,6 +43,20 @@ ProxyPass /crm http://127.0.0.1:4000
 ProxyPassReverse /crm http://127.0.0.1:4000
 ```
 
+
+Serve the frontend statically and proxy API routes:
+
+```
+Alias /crm-frontend /var/www/html/crm-frontend/dist
+<Directory /var/www/html/crm-frontend/dist>
+  Require all granted
+</Directory>
+ProxyPass /auth http://127.0.0.1:4000/auth
+ProxyPassReverse /auth http://127.0.0.1:4000/auth
+ProxyPass /internal http://127.0.0.1:4000/internal
+ProxyPassReverse /internal http://127.0.0.1:4000/internal
+```
+
 ## Routes
 
 - `POST /auth/login`
@@ -50,7 +64,6 @@ ProxyPassReverse /crm http://127.0.0.1:4000
 - `POST /auth/logout`
 - `POST /files/upload`
 - `GET /internal/dashboard/summary`
-
 - `GET /internal/users`
 - `GET /internal/users/:id`
 - `PUT /internal/users/:id`
@@ -59,6 +72,16 @@ ProxyPassReverse /crm http://127.0.0.1:4000
 - `POST /internal/users/:id/reminders`
 - `GET /internal/users/:id/logins`
 - `POST /internal/users/:id/impersonate`
+
+- `GET /internal/wallets/:userId`
+- `GET /internal/deposits`
+- `POST /internal/deposits/approve/:id`
+- `POST /internal/deposits/reject/:id`
+- `GET /internal/withdrawals`
+- `POST /internal/withdrawals/approve/:id`
+- `POST /internal/withdrawals/reject/:id`
+
+
 
 
 More modules can be added under `/internal/*` following the same pattern.

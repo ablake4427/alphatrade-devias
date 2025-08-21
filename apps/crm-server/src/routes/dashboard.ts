@@ -22,6 +22,7 @@ router.get('/summary', asyncHandler(async (_req: Request, res: Response) => {
   if (await assertTableExists('user_daily_metrics')) {
     const metrics = await query<any>('SELECT SUM(yesterday_active) as yesterday, SUM(seven_day_active) as week FROM user_daily_metrics');
 
+
 import { Router } from 'express';
 import { query, assertTableExists } from '../db/db.js';
 
@@ -40,6 +41,7 @@ router.get('/summary', async (_req, res) => {
       'SELECT SUM(yesterday_active) as yesterday, SUM(seven_day_active) as week FROM user_daily_metrics'
     );
 
+
     summary.retention = metrics[0];
   } else {
     summary.retention = { yesterday: 0, week: 0 };
@@ -50,9 +52,11 @@ router.get('/summary', async (_req, res) => {
   summary.leads_new_7d = (await assertTableExists('leads')) ? (await query<any>(sql.leadsNew7d))[0].leads_new_7d : 0;
   res.json(summary);
 }));
+
     
   res.json(summary);
 });
+
 
 
 export default router;

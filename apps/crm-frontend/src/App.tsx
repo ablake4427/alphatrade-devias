@@ -4,6 +4,12 @@ import SignIn from './pages/SignIn';
 import Dashboard from './pages/Dashboard';
 
 import Users from './pages/Users';
+import Deposits from './pages/Deposits';
+import Withdrawals from './pages/Withdrawals';
+
+
+import Users from './pages/Users';
+
 
 
 export default function App() {
@@ -14,8 +20,15 @@ export default function App() {
 
       <Route path="/" element={token ? <Dashboard /> : <Navigate to="/login" />} />
       <Route path="/users" element={token ? <Users /> : <Navigate to="/login" />} />
+      <Route path="/deposits" element={token ? <Deposits /> : <Navigate to="/login" />} />
+      <Route path="/withdrawals" element={token ? <Withdrawals /> : <Navigate to="/login" />} />
+
+
+      <Route path="/" element={token ? <Dashboard /> : <Navigate to="/login" />} />
+      <Route path="/users" element={token ? <Users /> : <Navigate to="/login" />} />
 
       <Route path="/*" element={token ? <Dashboard /> : <Navigate to="/login" />} />
+
     </Routes>
   );
 }

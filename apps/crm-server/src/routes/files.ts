@@ -1,7 +1,10 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 
+import { Router, Request, Response, NextFunction } from 'express';
+
 import { Router } from 'express';
+
 
 import multer from 'multer';
 import path from 'path';
@@ -13,6 +16,12 @@ const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFuncti
   Promise.resolve(fn(req, res, next)).catch(next);
 
 
+
+const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
+
+
+
 const router = Router();
 
 const storageRoot = process.env.FILE_STORAGE_ROOT!;
@@ -21,7 +30,11 @@ const upload = multer({ dest: path.join(storageRoot, 'tmp') });
 
 router.post('/upload', upload.single('file'), asyncHandler(async (req: Request, res: Response) => {
 
+
+router.post('/upload', upload.single('file'), asyncHandler(async (req: Request, res: Response) => {
+
 router.post('/upload', upload.single('file'), async (req, res) => {
+
 
   if (!req.file) return res.status(400).json({ error: 'No file' });
   const timestamp = Date.now();
@@ -37,7 +50,12 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
 }));
 
+
+
+}));
+
 });
+
 
 
 export default router;

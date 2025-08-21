@@ -1,13 +1,18 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 
+
+import { Router, Request, Response, NextFunction } from 'express';
+
 import { Router } from 'express';
+
 
 import { query } from '../db/db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import type { JwtPayload } from '@alphatrade/shared';
+
 
 import { rateLimit } from '../middleware/rateLimit.js';
 import { HttpError } from '../middleware/error.js';
@@ -27,7 +32,11 @@ const loginSchema = z.object({
 
 router.post('/login', rateLimit(5, 60000), asyncHandler(async (req: Request, res: Response) => {
 
+
+router.post('/login', rateLimit(5, 60000), asyncHandler(async (req: Request, res: Response) => {
+
 router.post('/login', async (req, res) => {
+
 
   const parsed = loginSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: 'Invalid payload' });
@@ -48,6 +57,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', asyncHandler(async (req: Request, res: Response) => {
 
+
   if (!admin) return res.status(401).json({ error: 'Invalid credentials' });
   const match = await bcrypt.compare(password, admin.password);
   if (!match) return res.status(401).json({ error: 'Invalid credentials' });
@@ -57,6 +67,7 @@ router.get('/me', asyncHandler(async (req: Request, res: Response) => {
 });
 
 router.get('/me', async (req, res) => {
+
 
   const auth = req.headers.authorization;
   if (!auth) return res.status(401).end();
@@ -75,9 +86,15 @@ router.get('/me', async (req, res) => {
 
 router.post('/logout', (req: Request, res: Response) => {
 
+
+}));
+
+router.post('/logout', (req: Request, res: Response) => {
+
 });
 
 router.post('/logout', (req, res) => {
+
 
   const auth = req.headers.authorization;
   if (auth) {

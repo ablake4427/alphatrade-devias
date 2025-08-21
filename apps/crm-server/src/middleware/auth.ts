@@ -5,6 +5,11 @@ import type { JwtPayload } from '@alphatrade/shared';
 import { rolePermissions, Action } from '../auth/permissions.js';
 
 
+
+import { rolePermissions, Action } from '../auth/permissions.js';
+
+
+
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
   const auth = req.headers.authorization;
   if (!auth) return res.status(401).end();
@@ -13,6 +18,10 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
     const payload = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     payload.perms = payload.perms && payload.perms.length ? payload.perms : rolePermissions[payload.role] || [];
+
+
+    payload.perms = payload.perms && payload.perms.length ? payload.perms : rolePermissions[payload.role] || [];
+
 
     (req as any).user = payload;
     next();
@@ -31,4 +40,3 @@ export function requirePerm(action: Action) {
     next();
   };
 }
-

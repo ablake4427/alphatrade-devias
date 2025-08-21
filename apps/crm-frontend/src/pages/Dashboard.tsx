@@ -13,6 +13,10 @@ export default function Dashboard() {
       <a href="/users">Users</a>
 
 
+      <a href="/users">Users</a>
+
+
+
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
