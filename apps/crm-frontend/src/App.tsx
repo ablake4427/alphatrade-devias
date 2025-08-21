@@ -17,6 +17,8 @@ import CronJobs from './pages/admin/CronJobs';
 import Kyc from './pages/admin/Kyc';
 import NotificationTemplates from './pages/admin/NotificationTemplates';
 import SystemInfo from './pages/admin/SystemInfo';
+import AuditLogs from './pages/admin/AuditLogs';
+import Alerts from './pages/admin/Alerts';
 
 import BinaryTrades from './pages/admin/binary-trades';
 import P2PAdmin from './pages/admin/p2p';
@@ -77,8 +79,8 @@ export default function App() {
       <Route path="/system/cron" element={token ? <CronJobs /> : <Navigate to="/login" />} />
       <Route path="/system/info" element={token ? <SystemInfo /> : <Navigate to="/login" />} />
 
-      <Route path="/system/audit" element={token ? <Placeholder title="Audit Logs" /> : <Navigate to="/login" />} />
-      <Route path="/system/alerts" element={token ? <Placeholder title="Alerts" /> : <Navigate to="/login" />} />
+      <Route path="/system/audit" element={token ? <AuditLogs /> : <Navigate to="/login" />} />
+      <Route path="/system/alerts" element={token ? <Alerts /> : <Navigate to="/login" />} />
       <Route path="/*" element={token ? <Dashboard /> : <Navigate to="/login" />} />
     </Routes>
   );
