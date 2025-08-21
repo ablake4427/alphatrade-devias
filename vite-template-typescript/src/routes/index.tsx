@@ -9,6 +9,7 @@ import { Layout as MarketingLayout } from "@/components/marketing/layout/layout"
 import { route as authRoute } from "./auth";
 import { route as componentsRoute } from "./components";
 import { route as dashboardRoute } from "./dashboard";
+import { route as adminRoute } from "./admin";
 
 export const routes: RouteObject[] = [
 	{
@@ -76,7 +77,8 @@ export const routes: RouteObject[] = [
 			return { Component: Page };
 		},
 	},
-	authRoute,
-	dashboardRoute,
-	{ path: "*", element: <NotFoundPage /> },
+        authRoute,
+        dashboardRoute,
+        adminRoute,
+        { path: "*", element: <NotFoundPage /> },
 ];
