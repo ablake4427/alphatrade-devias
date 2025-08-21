@@ -11,7 +11,8 @@ import { useSearchParams } from "react-router-dom";
 
 import type { Metadata } from "@/types/metadata";
 import { appConfig } from "@/config/app";
-import { dayjs } from "@/lib/dayjs";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { OrderModal } from "@/components/dashboard/order/order-modal";
 import { OrdersFilters } from "@/components/dashboard/order/orders-filters";
 import type { Filters } from "@/components/dashboard/order/orders-filters";
@@ -19,108 +20,84 @@ import { OrdersPagination } from "@/components/dashboard/order/orders-pagination
 import { OrdersSelectionProvider } from "@/components/dashboard/order/orders-selection-context";
 import { OrdersTable } from "@/components/dashboard/order/orders-table";
 import type { Order } from "@/components/dashboard/order/orders-table";
+import { getOpenOrders, getOrderHistory, updateOrderStatus } from "@/api/orders";
 
 const metadata = { title: `List | Orders | Dashboard | ${appConfig.name}` } satisfies Metadata;
 
-const orders = [
-	{
-		id: "ORD-005",
-		customer: { name: "Penjani Inyene", avatar: "/assets/avatar-4.png", email: "penjani.inyene@domain.com" },
-		lineItems: 1,
-		paymentMethod: { type: "visa", last4: "4011" },
-		currency: "USD",
-		totalAmount: 56.7,
-		status: "pending",
-		createdAt: dayjs().subtract(3, "hour").toDate(),
-	},
-	{
-		id: "ORD-004",
-		customer: { name: "Jie Yan", avatar: "/assets/avatar-8.png", email: "jie.yan@domain.com" },
-		lineItems: 1,
-		paymentMethod: { type: "amex", last4: "5678" },
-		currency: "USD",
-		totalAmount: 49.12,
-		status: "completed",
-		createdAt: dayjs().subtract(6, "hour").toDate(),
-	},
-	{
-		id: "ORD-003",
-		customer: { name: "Fran Perez", avatar: "/assets/avatar-5.png", email: "fran.perez@domain.com" },
-		lineItems: 2,
-		paymentMethod: { type: "applepay" },
-		currency: "USD",
-		totalAmount: 18.75,
-		status: "canceled",
-		createdAt: dayjs().subtract(7, "hour").toDate(),
-	},
-	{
-		id: "ORD-002",
-		customer: { name: "Carson Darrin", avatar: "/assets/avatar-3.png", email: "carson.darrin@domain.com" },
-		lineItems: 1,
-		paymentMethod: { type: "googlepay" },
-		currency: "USD",
-		totalAmount: 49.99,
-		status: "rejected",
-		createdAt: dayjs().subtract(1, "hour").subtract(1, "day").toDate(),
-	},
-	{
-		id: "ORD-001",
-		customer: { name: "Miron Vitold", avatar: "/assets/avatar-1.png", email: "miron.vitold@domain.com" },
-		lineItems: 2,
-		paymentMethod: { type: "mastercard", last4: "4242" },
-		currency: "USD",
-		totalAmount: 94.01,
-		status: "completed",
-		createdAt: dayjs().subtract(3, "hour").subtract(1, "day").toDate(),
-	},
-] satisfies Order[];
-
 export function Page(): React.JSX.Element {
-	const { customer, id, previewId, sortDir, status } = useExtractSearchParams();
+        const { customer, id, previewId, sortDir, status } = useExtractSearchParams();
+        const queryClient = useQueryClient();
 
-	const sortedOrders = applySort(orders, sortDir);
-	const filteredOrders = applyFilters(sortedOrders, { customer, id, status });
+        const { data: openOrders = [] } = useQuery({
+                queryKey: ["orders", "open"],
+                queryFn: getOpenOrders,
+        });
+        const { data: historyOrders = [] } = useQuery({
+                queryKey: ["orders", "history"],
+                queryFn: getOrderHistory,
+        });
 
-	return (
-		<React.Fragment>
-			<Helmet>
-				<title>{metadata.title}</title>
-			</Helmet>
-			<Box
-				sx={{
-					maxWidth: "var(--Content-maxWidth)",
-					m: "var(--Content-margin)",
-					p: "var(--Content-padding)",
-					width: "var(--Content-width)",
-				}}
-			>
-				<Stack spacing={4}>
-					<Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
-						<Box sx={{ flex: "1 1 auto" }}>
-							<Typography variant="h4">Orders</Typography>
-						</Box>
-						<div>
-							<Button startIcon={<PlusIcon />} variant="contained">
-								Add
-							</Button>
-						</div>
-					</Stack>
-					<OrdersSelectionProvider orders={filteredOrders}>
-						<Card>
-							<OrdersFilters filters={{ customer, id, status }} sortDir={sortDir} />
-							<Divider />
-							<Box sx={{ overflowX: "auto" }}>
-								<OrdersTable rows={filteredOrders} />
-							</Box>
-							<Divider />
-							<OrdersPagination count={filteredOrders.length} page={0} />
-						</Card>
-					</OrdersSelectionProvider>
-				</Stack>
-			</Box>
-			<OrderModal open={Boolean(previewId)} />
-		</React.Fragment>
-	);
+        const mutation = useMutation({
+                mutationFn: ({ id, status }: { id: string; status: Order["status"] }) =>
+                        updateOrderStatus(id, status),
+                onSuccess: () => {
+                        queryClient.invalidateQueries({ queryKey: ["orders"] });
+                },
+        });
+
+        const orders = React.useMemo(() => [...openOrders, ...historyOrders], [
+                openOrders,
+                historyOrders,
+        ]);
+
+        const sortedOrders = applySort([...orders], sortDir);
+        const filteredOrders = applyFilters(sortedOrders, { customer, id, status });
+
+        return (
+                <React.Fragment>
+                        <Helmet>
+                                <title>{metadata.title}</title>
+                        </Helmet>
+                        <Box
+                                sx={{
+                                        maxWidth: "var(--Content-maxWidth)",
+                                        m: "var(--Content-margin)",
+                                        p: "var(--Content-padding)",
+                                        width: "var(--Content-width)",
+                                }}
+                        >
+                                <Stack spacing={4}>
+                                        <Stack direction={{ xs: "column", sm: "row" }} spacing={3} sx={{ alignItems: "flex-start" }}>
+                                                <Box sx={{ flex: "1 1 auto" }}>
+                                                        <Typography variant="h4">Orders</Typography>
+                                                </Box>
+                                                <div>
+                                                        <Button startIcon={<PlusIcon />} variant="contained">
+                                                                Add
+                                                        </Button>
+                                                </div>
+                                        </Stack>
+                                        <OrdersSelectionProvider orders={filteredOrders}>
+                                                <Card>
+                                                        <OrdersFilters filters={{ customer, id, status }} sortDir={sortDir} />
+                                                        <Divider />
+                                                        <Box sx={{ overflowX: "auto" }}>
+                                                                <OrdersTable
+                                                                        rows={filteredOrders}
+                                                                        onStatusChange={(orderId, newStatus) =>
+                                                                                mutation.mutate({ id: orderId, status: newStatus })
+                                                                        }
+                                                                />
+                                                        </Box>
+                                                        <Divider />
+                                                        <OrdersPagination count={filteredOrders.length} page={0} />
+                                                </Card>
+                                        </OrdersSelectionProvider>
+                                </Stack>
+                        </Box>
+                        <OrderModal open={Boolean(previewId)} orderId={previewId} />
+                </React.Fragment>
+        );
 }
 
 function useExtractSearchParams(): {
