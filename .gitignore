@@ -1,0 +1,6 @@
+node_modules
+.env
+apps/*/node_modules
+packages/*/node_modules
+/apps/crm-frontend/dist
+/apps/crm-server/dist
