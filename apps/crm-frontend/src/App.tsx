@@ -14,6 +14,13 @@ import Kyc from './pages/admin/Kyc';
 import NotificationTemplates from './pages/admin/NotificationTemplates';
 import SystemInfo from './pages/admin/SystemInfo';
 
+import BinaryTrades from './pages/admin/binary-trades';
+import P2PAdmin from './pages/admin/p2p';
+
+import AdminCurrencies from './pages/admin/currencies';
+import AdminMarkets from './pages/admin/markets';
+
+
 export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   return (
@@ -27,6 +34,7 @@ export default function App() {
       <Route path="/deposits" element={token ? <Deposits /> : <Navigate to="/login" />} />
       <Route path="/withdrawals" element={token ? <Withdrawals /> : <Navigate to="/login" />} />
 
+
       <Route path="/admin/referrals" element={token ? <Referrals /> : <Navigate to="/login" />} />
       <Route path="/admin/coin-pairs" element={token ? <CoinPairs /> : <Navigate to="/login" />} />
       <Route path="/admin/general-settings" element={token ? <GeneralSettings /> : <Navigate to="/login" />} />
@@ -35,10 +43,14 @@ export default function App() {
       <Route path="/admin/notification-templates" element={token ? <NotificationTemplates /> : <Navigate to="/login" />} />
       <Route path="/admin/system-info" element={token ? <SystemInfo /> : <Navigate to="/login" />} />
 
+
+      <Route path="/admin/currencies" element={token ? <AdminCurrencies /> : <Navigate to="/login" />} />
+      <Route path="/admin/markets" element={token ? <AdminMarkets /> : <Navigate to="/login" />} />
+
       <Route path="/trading/spot" element={token ? <Placeholder title="Trading Spot" /> : <Navigate to="/login" />} />
       <Route path="/trading/futures" element={token ? <Placeholder title="Trading Futures" /> : <Navigate to="/login" />} />
-      <Route path="/trading/binary" element={token ? <Placeholder title="Trading Binary" /> : <Navigate to="/login" />} />
-      <Route path="/p2p" element={token ? <Placeholder title="P2P" /> : <Navigate to="/login" />} />
+      <Route path="/admin/binary-trades/*" element={token ? <BinaryTrades /> : <Navigate to="/login" />} />
+      <Route path="/admin/p2p/*" element={token ? <P2PAdmin /> : <Navigate to="/login" />} />
       <Route path="/support" element={token ? <Placeholder title="Support" /> : <Navigate to="/login" />} />
       <Route path="/crm/leads" element={token ? <Placeholder title="CRM Leads" /> : <Navigate to="/login" />} />
       <Route path="/crm/contacts" element={token ? <Placeholder title="CRM Contacts" /> : <Navigate to="/login" />} />
