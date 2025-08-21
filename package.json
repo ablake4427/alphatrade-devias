@@ -1,0 +1,11 @@
+{
+  "name": "alphatrade-crm-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "echo \"Use npm run build -w apps/crm-frontend or apps/crm-server\""
+  }
+}
