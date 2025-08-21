@@ -1,0 +1,923 @@
+{
+    "dashboard": {
+        "keyword": [
+            "Dashboard",
+            "Home",
+            "Panel",
+            "Admin",
+            "Control center",
+            "Overview",
+            "Main hub",
+            "Management hub",
+            "Administrative hub",
+            "Central hub",
+            "Command center",
+            "Administrator portal",
+            "Centralized interface",
+            "Admin console",
+            "Management dashboard",
+            "Main screen",
+            "Administrative dashboard",
+            "Command dashboard",
+            "Main control panel"
+        ],
+        "title": "Dashboard",
+        "icon": "las la-home",
+        "route_name": "admin.dashboard",
+        "menu_active": "admin.dashboard"
+    },
+    "manage_order": {
+        "title": "Manage Order",
+        "icon": "las la-hammer",
+        "menu_active": [
+            "admin.order*",
+            "admin.trade.history"
+        ],
+        "submenu": [{
+                "keyword": [
+                    "open order",
+                    "order"
+                ],
+                "title": "Open Order",
+                "route_name": "admin.order.open",
+                "menu_active": "admin.order.open"
+            },
+            {
+                "keyword": [
+                    "order history",
+                    "manage order",
+                    "spot order"
+                ],
+                "title": "Order History",
+                "route_name": "admin.order.history",
+                "menu_active": "admin.order.history"
+            },
+            {
+                "keyword": [
+                    "Trade History",
+                    "trade",
+                    "spot trade"
+                ],
+                "title": "Trade History",
+                "route_name": "admin.trade.history",
+                "menu_active": "admin.trade.history"
+            }
+        ]
+    },
+    "manage_p2p": {
+        "title": "Manage P2P",
+        "icon": "las la-users",
+        "counters": [
+            "reportedTrade"
+        ],
+        "menu_active": "admin.p2p*",
+        "submenu": [{
+                "keyword": [
+                    "running trade",
+                    "Manage P2P",
+                    "P2P trade",
+                    "Ongoing trade",
+                    "Trade management"
+                ],
+                "title": "Running Trade",
+                "route_name": "admin.p2p.trade.index",
+                "menu_active": [
+                    "admin.p2p.trade.index",
+                    null,
+                    "running"
+                ],
+                "params": [{
+                    "scope": "running"
+                }]
+            },
+            {
+                "keyword": [
+                    "reported trade",
+                    "Manage P2P",
+                    "P2P trade",
+                    "Trade issues",
+                    "Trade disputes"
+                ],
+                "title": "Reported Trade",
+                "route_name": "admin.p2p.trade.index",
+                "menu_active": [
+                    "admin.p2p.trade.index",
+                    null,
+                    "reported"
+                ],
+                "params": [{
+                    "scope": "reported"
+                }],
+                "counter": "reportedTrade"
+            },
+            {
+                "keyword": [
+                    "completed trade",
+                    "Manage P2P",
+                    "P2P trade",
+                    "Trade history",
+                    "Trade records"
+                ],
+                "title": "Completed Trade",
+                "route_name": "admin.p2p.trade.index",
+                "menu_active": [
+                    "admin.p2p.trade.index",
+                    null,
+                    "completed"
+                ],
+                "params": [{
+                    "scope": "completed"
+                }]
+            },
+            {
+                "keyword": [
+                    "manage ad",
+                    "Manage P2P",
+                    "P2P advertisement",
+                    "Ad management",
+                    "Ad control"
+                ],
+                "title": "Manage Ad",
+                "route_name": "admin.p2p.ad.index",
+                "menu_active": "admin.p2p.ad*"
+            },
+            {
+                "keyword": [
+                    "payment window",
+                    "Manage P2P",
+                    "P2P payment",
+                    "Payment management",
+                    "Payment control"
+                ],
+                "title": "Payment Window",
+                "route_name": "admin.p2p.payment.window.index",
+                "menu_active": "admin.p2p.payment.window*"
+            },
+            {
+                "keyword": [
+                    "payment method",
+                    "Manage P2P",
+                    "P2P payment",
+                    "Payment method",
+                    "Payment options"
+                ],
+                "title": "Payment Method",
+                "route_name": "admin.p2p.payment.method.index",
+                "menu_active": "admin.p2p.payment.method*"
+            }
+        ]
+    },
+    "manage_binary": {
+        "title": "Manage Binary",
+        "icon": "las la-clock",
+        "menu_active": "admin.binary*",
+        "submenu": [{
+                "keyword": [
+                    "running binary trade",
+                    "Manage Binary",
+                    "binary trade",
+                    "binary management"
+                ],
+                "title": "Running Trades",
+                "route_name": "admin.binary.trade.running",
+                "menu_active": "admin.binary.trade.running"
+            },
+            {
+                "keyword": [
+                    "Win binary trade",
+                    "Manage Binary",
+                    "binary trade",
+                    "binary management"
+                ],
+                "title": "Win Trades",
+                "route_name": "admin.binary.trade.win",
+                "menu_active": "admin.binary.trade.win"
+            },
+            {
+                "keyword": [
+                    "Lose binary trade",
+                    "Manage Binary",
+                    "binary trade",
+                    "binary management"
+                ],
+                "title": "Lose Trades",
+                "route_name": "admin.binary.trade.lose",
+                "menu_active": "admin.binary.trade.lose"
+            },
+            {
+                "keyword": [
+                    "All binary trade",
+                    "Manage Binary",
+                    "binary trade",
+                    "binary management"
+                ],
+                "title": "All Trades",
+                "route_name": "admin.binary.trade.index",
+                "menu_active": "admin.binary.trade.index"
+            }
+        ]
+    },
+    "manage_future_trade": {
+        "title": "Future Trade",
+        "icon": "las la-chart-line",
+        "menu_active": "admin.future.trade.*",
+        "module": "future_trade",
+        "submenu": [{
+                "keyword": [
+                    "open order",
+                    "active orders",
+                    "pending orders",
+                    "current orders",
+                    "live orders",
+                    "future trading orders"
+                ],
+                "title": "Open Order",
+                "route_name": "admin.future.trade.order.open",
+                "menu_active": "admin.future.trade.order.open"
+            },
+            {
+                "keyword": [
+                    "order history",
+                    "past orders",
+                    "completed orders",
+                    "order log",
+                    "trade records",
+                    "historical orders"
+                ],
+                "title": "Order History",
+                "route_name": "admin.future.trade.order.history",
+                "menu_active": "admin.future.trade.order.history"
+            },
+            {
+                "keyword": [
+                    "open position",
+                    "active position",
+                    "current position",
+                    "live position",
+                    "running trades",
+                    "leverage position"
+                ],
+                "title": "Open Position",
+                "route_name": "admin.future.trade.position.open",
+                "menu_active": "admin.future.trade.position.open"
+            },
+            {
+                "keyword": [
+                    "position history",
+                    "closed positions",
+                    "past positions",
+                    "position log",
+                    "historical positions",
+                    "completed positions"
+                ],
+                "title": "Position History",
+                "route_name": "admin.future.trade.position.history",
+                "menu_active": "admin.future.trade.position.history"
+            },
+            {
+                "keyword": [
+                    "trade history",
+                    "closed trade",
+                    "past trade",
+                    "position log",
+                    "historical trade",
+                    "completed trade"
+                ],
+                "title": "Trade History",
+                "route_name": "admin.future.trade.history",
+                "menu_active": "admin.future.trade.history"
+            },
+            {
+                "keyword": [
+                    "future pairs",
+                    "trading pairs",
+                    "future markets",
+                    "pair configuration",
+                    "market pairs",
+                    "leverage pairs"
+                ],
+                "title": "Future Pairs",
+                "route_name": "admin.future.trade.config.pairs",
+                "menu_active": "admin.future.trade.config.pairs"
+            }
+        ]
+    },
+    "manage_currency": {
+        "title": "Manage Currency",
+        "icon": "lab la-bitcoin",
+        "menu_active": "admin.currency*",
+        "submenu": [{
+                "keyword": [
+                    "crypto currency",
+                    "Manage Currency",
+                    "Cryptocurrency",
+                    "Digital currency",
+                    "Virtual currency",
+                    "Crypto management"
+                ],
+                "title": "Crypto Currency",
+                "route_name": "admin.currency.crypto",
+                "menu_active": "admin.currency.crypto"
+            },
+            {
+                "keyword": [
+                    "fiat currency",
+                    "Manage Currency",
+                    "Fiat currency",
+                    "Traditional currency",
+                    "Paper money",
+                    "Fiat management"
+                ],
+                "title": "Fiat Currency",
+                "route_name": "admin.currency.fiat",
+                "menu_active": "admin.currency.fiat"
+            }
+        ]
+    },
+    "manage_market": {
+        "title": "Manage Market",
+        "icon": "las la-list",
+        "menu_active": "admin.market.list",
+        "route_name": "admin.market.list",
+        "keyword": [
+            "manage market",
+            "Market management",
+            "Market control",
+            "Market list",
+            "Market settings"
+        ]
+    },
+    "manage_coin_pair": {
+        "title": "Manage Coin Pair",
+        "icon": "las la-coins",
+        "menu_active": "admin.coin.pair.*",
+        "route_name": "admin.coin.pair.list",
+        "keyword": [
+            "manage coin pair",
+            "Coin pair management",
+            "Coin pair control",
+            "Cryptocurrency pairs",
+            "Coin pair list"
+        ]
+    },
+    "manage_users": {
+        "title": "Manage Users",
+        "icon": "las la-users",
+        "counters": [
+            "bannedUsersCount",
+            "emailUnverifiedUsersCount",
+            "mobileUnverifiedUsersCount",
+            "kycUnverifiedUsersCount",
+            "kycPendingUsersCount"
+        ],
+        "menu_active": "admin.users*",
+        "submenu": [{
+                "keyword": [
+                    "active users",
+                    "Manage Users",
+                    "User management",
+                    "User control",
+                    "User status",
+                    "User activity",
+                    "User analytics"
+                ],
+                "title": "Active Users",
+                "route_name": "admin.users.active",
+                "menu_active": "admin.users.active"
+            },
+            {
+                "keyword": [
+                    "banned users",
+                    "Manage Users",
+                    "User management",
+                    "Account bans",
+                    "User activity"
+                ],
+                "title": "Banned Users",
+                "route_name": "admin.users.banned",
+                "menu_active": "admin.users.banned",
+                "counter": "bannedUsersCount"
+            },
+            {
+                "keyword": [
+                    "email unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management"
+                ],
+                "title": "Email Unverified",
+                "route_name": "admin.users.email.unverified",
+                "menu_active": "admin.users.email.unverified",
+                "counter": "emailUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "mobile unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management"
+                ],
+                "title": "Mobile Unverified",
+                "route_name": "admin.users.mobile.unverified",
+                "menu_active": "admin.users.mobile.unverified",
+                "counter": "mobileUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "kyc unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management"
+                ],
+                "title": "KYC Unverified",
+                "route_name": "admin.users.kyc.unverified",
+                "menu_active": "admin.users.kyc.unverified",
+                "counter": "kycUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "kyc pending users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management"
+                ],
+                "title": "KYC Pending",
+                "route_name": "admin.users.kyc.pending",
+                "menu_active": "admin.users.kyc.pending",
+                "counter": "kycPendingUsersCount"
+            },
+            {
+                "keyword": [
+                    "all users users",
+                    "Manage Users",
+                    "User management",
+                    "User control",
+                    "User activity",
+                    "User analytics"
+                ],
+                "title": "All Users",
+                "route_name": "admin.users.all",
+                "menu_active": "admin.users.all"
+            },
+            {
+                "keyword": [
+                    "send notification users",
+                    "Manage Users",
+                    "User notifications",
+                    "User management",
+                    "User activity"
+                ],
+                "title": "Send Notification",
+                "route_name": "admin.users.notification.all",
+                "menu_active": "admin.users.notification.all"
+            }
+        ]
+    },
+    "manage_referral": {
+        "title": "Manage Referral",
+        "icon": "las la-tree",
+        "menu_active": "admin.referrals.index",
+        "route_name": "admin.referrals.index",
+        "keyword": [
+            "manage referral",
+            "Referral management",
+            "Referral program",
+            "Referral system",
+            "Referral control"
+        ]
+    },
+    "deposits": {
+        "title": "Deposits",
+        "icon": "las la-file-invoice-dollar",
+        "counters": [
+            "pendingDepositsCount"
+        ],
+        "menu_active": "admin.deposit*",
+        "submenu": [{
+                "keyword": [
+                    "Pending Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit control",
+                    "Deposit status",
+                    "Deposit activity"
+                ],
+                "title": "Pending Deposits",
+                "route_name": "admin.deposit.pending",
+                "menu_active": "admin.deposit.pending",
+                "counter": "pendingDepositsCount",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Approved Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Approved Deposits",
+                "route_name": "admin.deposit.approved",
+                "menu_active": "admin.deposit.approved",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Successful Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Successful Deposits",
+                "route_name": "admin.deposit.successful",
+                "menu_active": "admin.deposit.successful",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Rejected Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Rejected Deposits",
+                "route_name": "admin.deposit.rejected",
+                "menu_active": "admin.deposit.rejected",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Initiated Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Initiated Deposits",
+                "route_name": "admin.deposit.initiated",
+                "menu_active": "admin.deposit.initiated",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "All Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit control",
+                    "Deposit activity"
+                ],
+                "title": "All Deposits",
+                "route_name": "admin.deposit.list",
+                "menu_active": "admin.deposit.list",
+                "params": {
+                    "user_id": ""
+                }
+            }
+        ]
+    },
+    "withdrawals": {
+        "title": "Withdrawals",
+        "icon": "la la-bank",
+        "counters": [
+            "pendingWithdrawCount"
+        ],
+        "menu_active": "admin.withdraw.data*",
+        "submenu": [{
+                "keyword": [
+                    "Pending Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal control",
+                    "Withdrawal status",
+                    "Withdrawal activity"
+                ],
+                "title": "Pending Withdrawals",
+                "route_name": "admin.withdraw.data.pending",
+                "menu_active": "admin.withdraw.data.pending",
+                "counter": "pendingWithdrawCount",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Approved Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal activity"
+                ],
+                "title": "Approved Withdrawals",
+                "route_name": "admin.withdraw.data.approved",
+                "menu_active": "admin.withdraw.data.approved",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Rejected Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal activity"
+                ],
+                "title": "Rejected Withdrawals",
+                "route_name": "admin.withdraw.data.rejected",
+                "menu_active": "admin.withdraw.data.rejected",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "All Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal control",
+                    "Withdrawal activity"
+                ],
+                "title": "All Withdrawals",
+                "route_name": "admin.withdraw.data.all",
+                "menu_active": "admin.withdraw.data.all",
+                "params": {
+                    "user_id": ""
+                }
+            }
+        ]
+    },
+    "support_ticket": {
+        "title": "Support Ticket",
+        "icon": "la la-ticket",
+        "counters": [
+            "pendingTicketCount"
+        ],
+        "menu_active": "admin.ticket*",
+        "submenu": [{
+                "keyword": [
+                    "Pending Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket control",
+                    "Ticket status",
+                    "Ticket activity"
+                ],
+                "title": "Pending Ticket",
+                "route_name": "admin.ticket.pending",
+                "menu_active": "admin.ticket.pending",
+                "counter": "pendingTicketCount"
+            },
+            {
+                "keyword": [
+                    "Closed Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket activity"
+                ],
+                "title": "Closed Ticket",
+                "route_name": "admin.ticket.closed",
+                "menu_active": "admin.ticket.closed"
+            },
+            {
+                "keyword": [
+                    "Answered Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket activity"
+                ],
+                "title": "Answered Ticket",
+                "route_name": "admin.ticket.answered",
+                "menu_active": "admin.ticket.answered"
+            },
+            {
+                "keyword": [
+                    "All Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket control",
+                    "Ticket activity"
+                ],
+                "title": "All Ticket",
+                "route_name": "admin.ticket.index",
+                "menu_active": "admin.ticket.index"
+            }
+        ]
+    },
+    "reports": {
+        "title": "Report",
+        "icon": "la la-list",
+        "menu_active": "admin.report*",
+        "submenu": [{
+                "keyword": [
+                    "Transaction Log",
+                    "Report",
+                    "Transaction report",
+                    "Transaction history",
+                    "Transaction activity",
+                    "balance sheet",
+                    "balance log",
+                    "balance history"
+                ],
+                "title": "Transaction History",
+                "route_name": "admin.report.transaction",
+                "menu_active": [
+                    "admin.report.transaction",
+                    "admin.report.transaction.search"
+                ],
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Login History",
+                    "Report",
+                    "Login report",
+                    "Login history",
+                    "Login activity"
+                ],
+                "title": "Login History",
+                "route_name": "admin.report.login.history",
+                "menu_active": [
+                    "admin.report.login.history",
+                    "admin.report.login.ipHistory"
+                ]
+            },
+            {
+                "keyword": [
+                    "Notification History",
+                    "Report",
+                    "Notification report",
+                    "Notification history",
+                    "Notification activity",
+                    "email log",
+                    "email history",
+                    "sms log",
+                    "sms history",
+                    "push notification log",
+                    "push notification history"
+                ],
+                "title": "Notification History",
+                "route_name": "admin.report.notification.history",
+                "menu_active": "admin.report.notification.history"
+            }
+        ]
+    },
+    "subscriber": {
+        "keyword": [
+            "subscriber",
+            "subscribers",
+            "Subscription management",
+            "Subscriber list",
+            "Subscriber activity"
+        ],
+        "title": "Subscribers",
+        "icon": "las la-thumbs-up",
+        "route_name": "admin.subscriber.index",
+        "menu_active": "admin.subscriber.*"
+    },
+    "system_setting": {
+        "keyword": [
+            "System Setting",
+            "setting",
+            "System configuration",
+            "System preferences",
+            "Configuration management",
+            "System setup"
+        ],
+        "title": "System Setting",
+        "icon": "las la-life-ring",
+        "route_name": "admin.setting.system",
+        "menu_active": [
+            "admin.setting.system",
+            "admin.setting.general",
+            "admin.setting.socialite.credentials",
+            "admin.cron*",
+            "admin.setting.system.configuration",
+            "admin.setting.logo.icon",
+            "admin.extensions.index",
+            "admin.language.manage",
+            "admin.language.key",
+            "admin.seo",
+            "admin.kyc.setting",
+            "admin.frontend.templates",
+            "admin.frontend.manage.*",
+            "admin.maintenance.mode",
+            "admin.setting.cookie",
+            "admin.setting.custom.css",
+            "admin.setting.sitemap",
+            "admin.setting.robot",
+            "admin.setting.notification.global.email",
+            "admin.setting.notification.global.sms",
+            "admin.setting.notification.global.push",
+            "admin.setting.notification.email",
+            "admin.setting.notification.sms",
+            "admin.setting.notification.push",
+            "admin.setting.notification.templates",
+            "admin.setting.notification.template.edit",
+            "admin.frontend.index",
+            "admin.frontend.sections*",
+            "admin.gateway*",
+            "admin.withdraw.method*",
+            "admin.setting.app.purchase"
+        ]
+    },
+    "extra": {
+        "title": "Extra",
+        "icon": "la la-server",
+        "menu_active": "admin.system*",
+        "counters": [
+            "updateAvailable"
+        ],
+        "submenu": [{
+                "keyword": [
+                    "Application",
+                    "System",
+                    "Application management",
+                    "Application settings",
+                    "System information",
+                    "version",
+                    "laravel",
+                    "timezone"
+                ],
+                "title": "Application",
+                "route_name": "admin.system.info",
+                "menu_active": "admin.system.info"
+            },
+            {
+                "keyword": [
+                    "Server",
+                    "System",
+                    "Server management",
+                    "Server settings",
+                    "System information",
+                    "version",
+                    "php version",
+                    "software",
+                    "ip address",
+                    "server ip address",
+                    "server port",
+                    "http host"
+                ],
+                "title": "Server",
+                "route_name": "admin.system.server.info",
+                "menu_active": "admin.system.server.info"
+            },
+            {
+                "keyword": [
+                    "Cache",
+                    "System",
+                    "Cache management",
+                    "Cache optimization",
+                    "System performance",
+                    "clear cache"
+                ],
+                "title": "Cache",
+                "route_name": "admin.system.optimize",
+                "menu_active": "admin.system.optimize"
+            },
+            {
+                "keyword": [
+                    "Update",
+                    "System",
+                    "Update management",
+                    "System update",
+                    "Software updates",
+                    "version update",
+                    "upgrade",
+                    "latest version"
+                ],
+                "title": "Update",
+                "route_name": "admin.system.update",
+                "menu_active": "admin.system.update*",
+                "counter": "updateAvailable"
+            }
+        ]
+    },
+    "report_and_request": {
+        "keyword": [
+            "Report & Request",
+            "Report and Request",
+            "Reports and Requests",
+            "Reporting and Requests",
+            "Report management",
+            "Request management",
+            "feature request",
+            "bug report"
+        ],
+        "title": "Report & Request",
+        "icon": "las la-bug",
+        "route_name": "admin.request.report",
+        "menu_active": "admin.request.report"
+    }
+}

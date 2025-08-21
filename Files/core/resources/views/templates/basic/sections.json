@@ -1,0 +1,354 @@
+{
+    "banner": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Banner Section",
+        "content": {
+            "images": {
+                "image_one": {
+                    "size": "500x360"
+                },
+                "image_two": {
+                    "size": "155x155"
+                },
+                "image_three": {
+                    "size": "450x285"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_text": "text",
+            "button_link": "text"
+        },
+        "element": {
+            "badge": "text",
+            "title": "text",
+            "link": "text",
+            "modal": true
+        }
+    },
+    "coin_pair": {
+        "builder": false,
+        "name": "Coin Pair Section"
+    },
+    "choose_us": {
+        "builder": true,
+        "name": "Choose Us Section",
+        "content": {
+            "images": {
+                "shape_image": {
+                    "size": "920x480"
+                }
+            },
+            "heading": "text"
+        },
+        "element": {
+            "icon": "icon",
+            "heading": "text",
+            "subheading": "text",
+            "modal": true
+        }
+    },
+    "how_to_invest": {
+        "builder": true,
+        "name": "How To Invest",
+        "content": {
+            "images": {
+                "image_light": {
+                    "size": "630x470"
+                },
+                "image_dark": {
+                    "size": "630x470"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_text": "text",
+            "button_link": "text"
+        },
+        "element": {
+            "heading": "text",
+            "subheading": "text",
+            "modal": true
+        }
+    },
+    "crypto_currency": {
+        "builder": true,
+        "name": "Crypto Currency Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+    "product": {
+        "builder": true,
+        "name": "Product Section",
+        "content": {
+            "images": {
+                "image_light": {
+                    "size": "630x470"
+                },
+                "image_dark": {
+                    "size": "630x470"
+                }
+            },
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "icon": "icon",
+            "heading": "text",
+            "subheading": "text",
+            "modal": true
+        }
+    },
+    "policy_pages": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
+            "slug": "title",
+            "details": "textarea-nic",
+            "modal": false
+        }
+    },
+    "faq": {
+        "builder": true,
+        "name": "FAQ Section",
+        "content": {
+            "images": {
+                "image_light": {
+                    "size": "535x535"
+                },
+                "image_dark": {
+                    "size": "535x535"
+                }
+            },
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "question": "text",
+            "answer": "text",
+            "modal": true
+        }
+    },
+    "blog": {
+        "builder": true,
+        "name": "Blog Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "600x300",
+                    "thumb": "300x150"
+                }
+            },
+            "title": "text",
+            "slug": "title",
+            "description_nic": "textarea-nic",
+            "modal": false
+        }
+    },
+    "subscribe": {
+        "builder": true,
+        "name": "Subscribe Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "500x330"
+                },
+                "shape_image_one": {
+                    "size": "30x30"
+                },
+                "shape_image_two": {
+                    "size": "30x30"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_text": "text",
+            "placeholder": "text"
+        }
+    },
+    "social_icon": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Social Icons",
+        "element": {
+            "title": "text",
+            "icon": "icon",
+            "url": "text",
+            "modal": true
+        }
+    },
+    "contact_us": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Contact Us",
+        "content": {
+            "images": {
+                "image_light": {
+                    "size": "410x410"
+                },
+                "image_dark": {
+                    "size": "410x410"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "email": "text",
+            "mobile": "text"
+        }
+    },
+    "login": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Login Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x600"
+                }
+            },
+            "heading_one": "text",
+            "subheading_one": "text",
+            "heading_two": "text",
+            "subheading_two": "text"
+        }
+    },
+    "register": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Register Section",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x600"
+                }
+            },
+            "title": "text",
+            "heading_one": "text",
+            "subheading_one": "text",
+            "heading_two": "text",
+            "subheading_two": "text"
+        }
+    },
+    "kyc_content": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Kyc Content Section",
+        "content": {
+            "unverified_content": "textarea",
+            "pending_content": "textarea",
+            "rejection_content": "textarea"
+        }
+    },
+    "footer": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Footer Section",
+        "content": {
+            "about_info": "text"
+        }
+    },
+    "account_recovery": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Account Recovery",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x600"
+                }
+            },
+            "title": "text",
+            "heading": "text"
+        }
+    },
+    "account_verification": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Account Verification",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "600x600"
+                }
+            },
+            "title": "text",
+            "heading": "text"
+        }
+    },
+    "p2p_banner": {
+        "builder": true,
+        "name": "P2P Banner Section",
+        "content": {
+            "images": {
+                "image_one": {
+                    "size": "340x260"
+                },
+                "image_two": {
+                    "size": "1920x300"
+                }
+            },
+            "heading": "text",
+            "subheading": "text"
+        }
+    },
+    "p2p_how_to_work": {
+        "builder": true,
+        "name": "P2P How To Work Section",
+        "content": {
+            "heading": "text"
+        },
+        "element": {
+            "heading": "text",
+            "icon": "icon",
+            "small_description": "textarea",
+            "select": {
+                "name": "buy_or_sell",
+                "options": {
+                    "sell": "Sell",
+                    "buy": "Buy"
+                }
+            },
+            "modal": true
+        }
+    },
+    "app_onboarding": {
+        "builder": true,
+        "no_selection": true,
+        "name": "App Onboarding Section",
+        "element": {
+            "images": {
+                "image": {
+                    "size": "300x300"
+                }
+            },
+            "title": "text",
+            "subtitle": "textarea",
+            "modal": false
+        }
+    },
+    "register_disable": {
+        "builder": true,
+        "no_selection": true,
+        "name": "Registration Disable",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "280x280"
+                }
+            },
+            "heading": "text",
+            "subheading": "text",
+            "button_name": "text",
+            "button_url": "text"
+        }
+    }
+}
