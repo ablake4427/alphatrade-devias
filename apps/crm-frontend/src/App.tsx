@@ -6,8 +6,13 @@ import Users from './pages/Users';
 import Deposits from './pages/Deposits';
 import Withdrawals from './pages/Withdrawals';
 import Placeholder from './pages/Placeholder';
+
 import BinaryTrades from './pages/admin/binary-trades';
 import P2PAdmin from './pages/admin/p2p';
+
+import AdminCurrencies from './pages/admin/currencies';
+import AdminMarkets from './pages/admin/markets';
+
 
 export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -18,6 +23,8 @@ export default function App() {
       <Route path="/users" element={token ? <Users /> : <Navigate to="/login" />} />
       <Route path="/deposits" element={token ? <Deposits /> : <Navigate to="/login" />} />
       <Route path="/withdrawals" element={token ? <Withdrawals /> : <Navigate to="/login" />} />
+      <Route path="/admin/currencies" element={token ? <AdminCurrencies /> : <Navigate to="/login" />} />
+      <Route path="/admin/markets" element={token ? <AdminMarkets /> : <Navigate to="/login" />} />
       <Route path="/trading/spot" element={token ? <Placeholder title="Trading Spot" /> : <Navigate to="/login" />} />
       <Route path="/trading/futures" element={token ? <Placeholder title="Trading Futures" /> : <Navigate to="/login" />} />
       <Route path="/admin/binary-trades/*" element={token ? <BinaryTrades /> : <Navigate to="/login" />} />
