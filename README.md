@@ -50,6 +50,7 @@ ProxyPassReverse /crm http://127.0.0.1:4000
 - `POST /auth/logout`
 - `POST /files/upload`
 - `GET /internal/dashboard/summary`
+
 - `GET /internal/users`
 - `GET /internal/users/:id`
 - `PUT /internal/users/:id`
@@ -58,5 +59,6 @@ ProxyPassReverse /crm http://127.0.0.1:4000
 - `POST /internal/users/:id/reminders`
 - `GET /internal/users/:id/logins`
 - `POST /internal/users/:id/impersonate`
+
 
 More modules can be added under `/internal/*` following the same pattern.

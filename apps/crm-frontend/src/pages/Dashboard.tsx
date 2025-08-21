@@ -9,7 +9,10 @@ export default function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
+
       <a href="/users">Users</a>
+
+
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
