@@ -6,8 +6,13 @@ import Users from './pages/Users';
 import Deposits from './pages/Deposits';
 import Withdrawals from './pages/Withdrawals';
 import Placeholder from './pages/Placeholder';
+
+import BinaryTrades from './pages/admin/binary-trades';
+import P2PAdmin from './pages/admin/p2p';
+
 import AdminCurrencies from './pages/admin/currencies';
 import AdminMarkets from './pages/admin/markets';
+
 
 export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -22,8 +27,8 @@ export default function App() {
       <Route path="/admin/markets" element={token ? <AdminMarkets /> : <Navigate to="/login" />} />
       <Route path="/trading/spot" element={token ? <Placeholder title="Trading Spot" /> : <Navigate to="/login" />} />
       <Route path="/trading/futures" element={token ? <Placeholder title="Trading Futures" /> : <Navigate to="/login" />} />
-      <Route path="/trading/binary" element={token ? <Placeholder title="Trading Binary" /> : <Navigate to="/login" />} />
-      <Route path="/p2p" element={token ? <Placeholder title="P2P" /> : <Navigate to="/login" />} />
+      <Route path="/admin/binary-trades/*" element={token ? <BinaryTrades /> : <Navigate to="/login" />} />
+      <Route path="/admin/p2p/*" element={token ? <P2PAdmin /> : <Navigate to="/login" />} />
       <Route path="/support" element={token ? <Placeholder title="Support" /> : <Navigate to="/login" />} />
       <Route path="/crm/leads" element={token ? <Placeholder title="CRM Leads" /> : <Navigate to="/login" />} />
       <Route path="/crm/contacts" element={token ? <Placeholder title="CRM Contacts" /> : <Navigate to="/login" />} />
