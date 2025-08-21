@@ -15,8 +15,18 @@ export const pool = mysql.createPool({
 });
 
 export async function query<T = any>(sql: string, params: any[] = []): Promise<T[]> {
+
+  try {
+    const [rows] = await pool.query(sql, params);
+    return rows as T[];
+  } catch (err) {
+    logger.warn({ err, sql }, 'SQL query error');
+    throw err;
+  }
+
   const [rows] = await pool.query(sql, params);
   return rows as T[];
+
 }
 
 export async function tx<T>(fn: (conn: mysql.Connection) => Promise<T>): Promise<T> {
@@ -27,6 +37,9 @@ export async function tx<T>(fn: (conn: mysql.Connection) => Promise<T>): Promise
     await conn.commit();
     return result;
   } catch (err) {
+
+    logger.warn({ err }, 'SQL transaction error');
+
     await conn.rollback();
     throw err;
   } finally {
