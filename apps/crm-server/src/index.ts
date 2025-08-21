@@ -6,6 +6,7 @@ import usersRoutes from './routes/users.js';
 import walletsRoutes from './routes/wallets.js';
 import depositsRoutes from './routes/deposits.js';
 import withdrawalsRoutes from './routes/withdrawals.js';
+import internalRoutes from './routes/internal.js';
 import { requireAuth, requirePerm } from './middleware/auth.js';
 import { rateLimit } from './middleware/rateLimit.js';
 import { errorHandler } from './middleware/error.js';
@@ -33,6 +34,7 @@ app.use('/internal/users', requireAuth, usersRoutes);
 app.use('/internal/wallets', requireAuth, walletsRoutes);
 app.use('/internal/deposits', requireAuth, depositsRoutes);
 app.use('/internal/withdrawals', requireAuth, withdrawalsRoutes);
+app.use('/internal', requireAuth, internalRoutes);
 
 app.use(errorHandler);
 

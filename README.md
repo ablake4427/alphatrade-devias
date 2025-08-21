@@ -24,8 +24,20 @@ TZ=UTC
 
 Grant minimal MySQL privileges:
 ```
-GRANT SELECT, INSERT, UPDATE ON alphatrade.* TO 'crm_user'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON alphatrade.* TO 'crm_user'@'%';
 ```
+
+### Additional internal modules
+
+Server exposes placeholder route groups under `/internal` for:
+
+* `spot`, `futures`, `binary` trading
+* `p2p` advertisements and trades
+* `support` tickets
+* `crm` leads, contacts, opportunities, tasks, notes and staff chat
+* `reports` for transactions, logins, notifications and agent performance
+* `settings` key/value configuration
+* `cron`, `audit`, and `alerts` read-only system information
 
 ## Build
 
