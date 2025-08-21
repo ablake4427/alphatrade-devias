@@ -3,16 +3,13 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/dist/ssr/CheckCircle";
-import { Clock as ClockIcon } from "@phosphor-icons/react/dist/ssr/Clock";
 import { Eye as EyeIcon } from "@phosphor-icons/react/dist/ssr/Eye";
-import { Minus as MinusIcon } from "@phosphor-icons/react/dist/ssr/Minus";
-import { XCircle as XCircleIcon } from "@phosphor-icons/react/dist/ssr/XCircle";
 
 import { paths } from "@/paths";
 import { dayjs } from "@/lib/dayjs";
@@ -23,19 +20,21 @@ import { RouterLink } from "@/components/core/link";
 import { useOrdersSelection } from "./orders-selection-context";
 
 export interface Order {
-	id: string;
-	customer: { name: string; avatar?: string; email: string };
-	lineItems: number;
-	paymentMethod?: { type: "amex" | "applepay" | "googlepay" | "mastercard" | "visa"; last4?: string };
-	currency: string;
-	totalAmount: number;
-	status: "pending" | "completed" | "canceled" | "rejected";
-	createdAt: Date;
+        id: string;
+        customer: { name: string; avatar?: string; email: string };
+        lineItems: number;
+        paymentMethod?: { type: "amex" | "applepay" | "googlepay" | "mastercard" | "visa"; last4?: string };
+        currency: string;
+        totalAmount: number;
+        status: "pending" | "completed" | "canceled" | "rejected";
+        createdAt: Date;
 }
 
-const columns = [
-	{
-		formatter: (row): React.JSX.Element => (
+const createColumns = (
+        onStatusChange?: (id: string, status: Order["status"]) => void,
+): ColumnDef<Order>[] => [
+        {
+                formatter: (row): React.JSX.Element => (
 			<Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
 				<Box
 					sx={{
@@ -118,24 +117,24 @@ const columns = [
 		name: "Customer",
 		width: "250px",
 	},
-	{
-		formatter: (row): React.JSX.Element => {
-			const mapping = {
-				pending: { label: "Pending", icon: <ClockIcon color="var(--mui-palette-warning-main)" weight="fill" /> },
-				completed: {
-					label: "Completed",
-					icon: <CheckCircleIcon color="var(--mui-palette-success-main)" weight="fill" />,
-				},
-				canceled: { label: "Canceled", icon: <XCircleIcon color="var(--mui-palette-error-main)" weight="fill" /> },
-				rejected: { label: "Rejected", icon: <MinusIcon color="var(--mui-palette-error-main)" /> },
-			} as const;
-			const { label, icon } = mapping[row.status] ?? { label: "Unknown", icon: null };
-
-			return <Chip icon={icon} label={label} size="small" variant="outlined" />;
-		},
-		name: "Status",
-		width: "100px",
-	},
+        {
+                formatter: (row): React.JSX.Element => (
+                        <Select
+                                size="small"
+                                value={row.status}
+                                onChange={(e) =>
+                                        onStatusChange?.(row.id, e.target.value as Order["status"])
+                                }
+                        >
+                                <MenuItem value="pending">Pending</MenuItem>
+                                <MenuItem value="completed">Completed</MenuItem>
+                                <MenuItem value="canceled">Canceled</MenuItem>
+                                <MenuItem value="rejected">Rejected</MenuItem>
+                        </Select>
+                ),
+                name: "Status",
+                width: "100px",
+        },
 	{
 		formatter: (): React.JSX.Element => (
 			<IconButton component={RouterLink} href={paths.dashboard.orders.preview("1")}>
@@ -150,35 +149,37 @@ const columns = [
 ] satisfies ColumnDef<Order>[];
 
 export interface OrdersTableProps {
-	rows: Order[];
+        rows: Order[];
+        onStatusChange?: (id: string, status: Order["status"]) => void;
 }
 
-export function OrdersTable({ rows }: OrdersTableProps): React.JSX.Element {
-	const { selected, deselectAll, deselectOne, selectAll, selectOne } = useOrdersSelection();
+export function OrdersTable({ rows, onStatusChange }: OrdersTableProps): React.JSX.Element {
+        const { selected, deselectAll, deselectOne, selectAll, selectOne } = useOrdersSelection();
+        const columns = React.useMemo(() => createColumns(onStatusChange), [onStatusChange]);
 
-	return (
-		<React.Fragment>
-			<DataTable<Order>
-				columns={columns}
-				onDeselectAll={deselectAll}
-				onDeselectOne={(_, row) => {
-					deselectOne(row.id);
-				}}
-				onSelectAll={selectAll}
-				onSelectOne={(_, row) => {
-					selectOne(row.id);
-				}}
-				rows={rows}
-				selectable
-				selected={selected}
-			/>
-			{rows.length === 0 ? (
-				<Box sx={{ p: 3 }}>
-					<Typography color="text.secondary" sx={{ textAlign: "center" }} variant="body2">
-						No orders found
-					</Typography>
-				</Box>
-			) : null}
-		</React.Fragment>
-	);
+        return (
+                <React.Fragment>
+                        <DataTable<Order>
+                                columns={columns}
+                                onDeselectAll={deselectAll}
+                                onDeselectOne={(_, row) => {
+                                        deselectOne(row.id);
+                                }}
+                                onSelectAll={selectAll}
+                                onSelectOne={(_, row) => {
+                                        selectOne(row.id);
+                                }}
+                                rows={rows}
+                                selectable
+                                selected={selected}
+                        />
+                        {rows.length === 0 ? (
+                                <Box sx={{ p: 3 }}>
+                                        <Typography color="text.secondary" sx={{ textAlign: "center" }} variant="body2">
+                                                No orders found
+                                        </Typography>
+                                </Box>
+                        ) : null}
+                </React.Fragment>
+        );
 }

@@ -39,7 +39,7 @@ export const paths = {
 			verifyCode: { centered: "/auth/samples/verify-code/centered", split: "/auth/samples/verify-code/split" },
 		},
 	},
-	dashboard: {
+        dashboard: {
 		overview: "/dashboard",
 		settings: {
 			account: "/dashboard/settings/account",
@@ -109,9 +109,14 @@ export const paths = {
 			profile: { timeline: "/dashboard/social/profile", connections: "/dashboard/social/profile/connections" },
 			feed: "/dashboard/social/feed",
 		},
-		tasks: "/dashboard/tasks",
-	},
-	pdf: { invoice: (invoiceId: string) => `/pdf/invoices/${invoiceId}` },
+                tasks: "/dashboard/tasks",
+        },
+        admin: {
+                dashboard: "/admin/dashboard",
+                notifications: "/admin/notifications",
+                requestReport: "/admin/request-report",
+        },
+        pdf: { invoice: (invoiceId: string) => `/pdf/invoices/${invoiceId}` },
 	components: {
 		index: "/components",
 		buttons: "/components/buttons",
