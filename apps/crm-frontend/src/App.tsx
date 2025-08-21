@@ -24,6 +24,12 @@ import P2PAdmin from './pages/admin/p2p';
 import AdminCurrencies from './pages/admin/currencies';
 import AdminMarkets from './pages/admin/markets';
 
+import Leads from './pages/crm/Leads';
+import Contacts from './pages/crm/Contacts';
+import Opportunities from './pages/crm/Opportunities';
+import Tasks from './pages/crm/Tasks';
+import Notes from './pages/crm/Notes';
+import Chat from './pages/crm/Chat';
 
 export default function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -62,12 +68,12 @@ export default function App() {
       <Route path="/admin/binary-trades/*" element={token ? <BinaryTrades /> : <Navigate to="/login" />} />
       <Route path="/admin/p2p/*" element={token ? <P2PAdmin /> : <Navigate to="/login" />} />
       <Route path="/support" element={token ? <Placeholder title="Support" /> : <Navigate to="/login" />} />
-      <Route path="/crm/leads" element={token ? <Placeholder title="CRM Leads" /> : <Navigate to="/login" />} />
-      <Route path="/crm/contacts" element={token ? <Placeholder title="CRM Contacts" /> : <Navigate to="/login" />} />
-      <Route path="/crm/opportunities" element={token ? <Placeholder title="CRM Opportunities" /> : <Navigate to="/login" />} />
-      <Route path="/crm/tasks" element={token ? <Placeholder title="CRM Tasks" /> : <Navigate to="/login" />} />
-      <Route path="/crm/notes" element={token ? <Placeholder title="CRM Notes" /> : <Navigate to="/login" />} />
-      <Route path="/crm/chat" element={token ? <Placeholder title="CRM Staff Chat" /> : <Navigate to="/login" />} />
+      <Route path="/crm/leads" element={token ? <Leads /> : <Navigate to="/login" />} />
+      <Route path="/crm/contacts" element={token ? <Contacts /> : <Navigate to="/login" />} />
+      <Route path="/crm/opportunities" element={token ? <Opportunities /> : <Navigate to="/login" />} />
+      <Route path="/crm/tasks" element={token ? <Tasks /> : <Navigate to="/login" />} />
+      <Route path="/crm/notes" element={token ? <Notes /> : <Navigate to="/login" />} />
+      <Route path="/crm/chat" element={token ? <Chat /> : <Navigate to="/login" />} />
       <Route path="/reports" element={token ? <Placeholder title="Reports" /> : <Navigate to="/login" />} />
 
       <Route path="/settings" element={token ? <Settings /> : <Navigate to="/login" />} />
