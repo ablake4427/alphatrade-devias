@@ -9,7 +9,7 @@ const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFuncti
 
 const router = Router();
 
-const storageRoot = process.env.FILE_STORAGE_ROOT!;
+const storageRoot = process.env.FILE_STORAGE_ROOT || path.join(process.cwd(), 'storage');
 const upload = multer({ dest: path.join(storageRoot, 'tmp') });
 
 router.post('/upload', upload.single('file'), asyncHandler(async (req: Request, res: Response) => {

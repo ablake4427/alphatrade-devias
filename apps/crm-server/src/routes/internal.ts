@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { requirePerm } from '../middleware/auth.js';
-import { query } from '../db/db.js';
+import { query, pool, assertTableExists } from '../db/db.js';
+import { HttpError } from '../middleware/error.js';
 import {
   listSpotOrders,
   cancelSpotOrder,
@@ -10,8 +11,6 @@ import {
   listBinaryTrades,
   refundBinaryTrade
 } from '../db/sql/trading.js';
-import { pool, assertTableExists } from '../db/db.js';
-import { HttpError } from '../middleware/error.js';
 import {
   listAds,
   insertAd,
@@ -23,7 +22,6 @@ import {
   insertTradeMessage,
   resolveDispute
 } from '../db/sql/p2p.js';
-import { query } from '../db/db.js';
 import {
   listLeads,
   insertLead,
@@ -41,14 +39,12 @@ import {
   listChat,
   insertChat
 } from '../db/sql/crm.js';
-import { query, assertTableExists } from '../db/db.js';
 import * as reports from '../db/sql/reports.js';
-import { requirePerm } from '../middleware/auth.js';
-import { query } from '../db/db.js';
 import * as settingsSql from '../db/sql/settings.js';
 import * as cronSql from '../db/sql/cron.js';
 import * as auditSql from '../db/sql/audit.js';
 import * as alertsSql from '../db/sql/alerts.js';
+
 
 const router = Router();
 
@@ -57,8 +53,6 @@ const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFuncti
 
 const perm = (action: string) => requirePerm(action as any);
 
-const asyncHandler = (fn: any) => (req: Request, res: Response, next: NextFunction) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
 
 function notImplemented(_req: any, res: any) {
   res.status(501).json({ error: 'not implemented' });
