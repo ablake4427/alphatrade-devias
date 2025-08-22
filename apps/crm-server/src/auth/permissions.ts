@@ -7,6 +7,13 @@ export type Action =
   | 'deposits.write'
   | 'withdrawals.read'
   | 'withdrawals.write'
+  | 'spot.orders.read'
+  | 'spot.orders.write'
+  | 'spot.trades.read'
+  | 'futures.positions.read'
+  | 'futures.orders.read'
+  | 'binary.trades.read'
+  | 'binary.trades.write';
   | 'crm.read'
   | 'crm.write';
   | 'reports.read';
@@ -23,6 +30,26 @@ export const rolePermissions: Record<string, Action[]> = {
     'deposits.write',
     'withdrawals.read',
     'withdrawals.write',
+    'spot.orders.read',
+    'spot.orders.write',
+    'spot.trades.read',
+    'futures.positions.read',
+    'futures.orders.read',
+    'binary.trades.read',
+    'binary.trades.write'
+  ],
+  agent: [
+    'dashboard.read',
+    'users.read',
+    'wallets.read',
+    'deposits.read',
+    'withdrawals.read',
+    'spot.orders.read',
+    'spot.trades.read',
+    'futures.positions.read',
+    'futures.orders.read',
+    'binary.trades.read'
+  ],
     'crm.read',
     'crm.write'
   ],
