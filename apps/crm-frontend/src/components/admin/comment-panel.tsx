@@ -1,28 +1,16 @@
 import { useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { apiFetch } from '../../api/client';
-
-interface Comment {
-  id?: string;
-  text: string;
-  createdAt?: string;
-}
+import { listComments, addComment, Comment } from '../../api/comments';
 
 export default function CommentPanel({ resource }: { resource: string }) {
   const [text, setText] = useState('');
-  const { data, refetch } = useQuery<{ data: Comment[] }>({
+  const { data: comments = [], refetch } = useQuery<Comment[]>({
     queryKey: [resource, 'comments'],
-    queryFn: () => apiFetch(`/internal/${resource}/comments`),
+    queryFn: () => listComments(resource),
   });
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      await apiFetch(`/internal/${resource}/comments`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
-      });
-    },
+    mutationFn: async () => addComment(resource, text),
     onSuccess: () => {
       setText('');
       refetch();
@@ -33,8 +21,8 @@ export default function CommentPanel({ resource }: { resource: string }) {
     <div>
       <h3>Comments</h3>
       <ul>
-        {(data?.data || []).map((c, i) => (
-          <li key={c.id || i}>{c.text}</li>
+        {comments.map((c) => (
+          <li key={c.id}>{c.content}</li>
         ))}
       </ul>
       <form
