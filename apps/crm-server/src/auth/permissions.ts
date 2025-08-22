@@ -9,6 +9,9 @@ export type Action =
   | 'withdrawals.write'
   | 'crm.read'
   | 'crm.write';
+  | 'reports.read';
+  | 'support.read'
+  | 'support.write';
 
 export const rolePermissions: Record<string, Action[]> = {
   admin: [
@@ -32,6 +35,14 @@ export const rolePermissions: Record<string, Action[]> = {
     'crm.read',
     'crm.write'
   ],
+    'reports.read'
+  ],
+  agent: ['dashboard.read', 'users.read', 'wallets.read', 'deposits.read', 'withdrawals.read', 'reports.read'],
   support: ['dashboard.read', 'users.read']
+    'support.read',
+    'support.write'
+  ],
+  agent: ['dashboard.read', 'users.read', 'wallets.read', 'deposits.read', 'withdrawals.read'],
+  support: ['dashboard.read', 'users.read', 'support.read', 'support.write']
 };
 

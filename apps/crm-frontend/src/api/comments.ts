@@ -3,6 +3,7 @@ import { apiFetch } from './client';
 export interface Comment {
   id: string;
   content: string;
+  created_at?: string;
 }
 
 export function listComments(entityId: string): Promise<Comment[]> {
@@ -28,5 +29,5 @@ export function updateComment(entityId: string, id: string, content: string): Pr
 export function deleteComment(entityId: string, id: string): Promise<void> {
   return apiFetch(`/api/comments/${id}?entityId=${encodeURIComponent(entityId)}`, {
     method: 'DELETE',
-  });
+  }).then(() => {});
 }
